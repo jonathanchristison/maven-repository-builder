@@ -22,8 +22,8 @@ class MavenArtifact:
         self.version = version
         self.classifier = classifier
 
-    @staticmethod
-    def createFromGAV(gav):
+    @classmethod
+    def createFromGAV(cls, gav):
         """
         Initialize an artifact using a colon separated
         GAV of the form groupId:artifactId:[type:][classifier:]version[:scope]
@@ -60,7 +60,7 @@ class MavenArtifact:
                 classifier = gavParts[3]
                 version = gavParts[4]
 
-        result = MavenArtifact(groupId, artifactId, artifactType, version, classifier)
+        result = cls(groupId, artifactId, artifactType, version, classifier)
 
         MavenArtifact.gav_cache[gav] = result
 
