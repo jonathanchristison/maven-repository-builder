@@ -35,8 +35,10 @@ class MavenArtifact:
 
         gavParts = gav.split(':')
         if len(gavParts) not in [3, 4, 5, 6]:
-            logging.error("Invalid GAV string: %s", gav)
-            sys.exit(1)
+            err = ValueError("Invalid GAV string: {}".format(gav))
+            logging.error(err)
+            raise err
+
         groupId = gavParts[0]
         artifactId = gavParts[1]
 
@@ -73,8 +75,9 @@ class MavenArtifact:
         """
         path_parts = path.split('/')
         if len(path_parts) < 4:
-            logging.error("Invalid POM path: %s", path)
-            sys.exit(1)
+            err = ValueError("Invalid POM path: {}".format(path))
+            logging.error(err)
+            raise err
         groupid = ".".join(path_parts[0:-3])
         artifactid = path_parts[-3]
         version = path_parts[-2]
